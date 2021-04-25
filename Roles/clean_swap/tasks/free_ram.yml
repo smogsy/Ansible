@@ -1,0 +1,23 @@
+---
+- name: Get ram percentage
+    shell: free -m | grep Mem | awk '{print ($3/$2)*100}'
+    register: clean_ram_percentage_used
+
+
+- name: Get free ram in mb
+  shell: free -m | grep Mem | awk '{print $2}'
+    register: clean_swap_free_ram
+  when: ram_met_opsview_threshold | bool
+
+- debug:
+    - msg: "Not enough spare ram to safely clean swap RAM Percentage: {{ clean_ram_percentage_used }}"
+  when:
+    - ram_not_meet_threshold | bool
+
+- debug:
+    msg: "{{ used ram space: clean_swap_free_ram }}"
+    when:
+      - ram_met_opsview_threshold | bool
+      - ram_meet_threshold | bool
+
+...

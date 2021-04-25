@@ -1,0 +1,10 @@
+---
+ansible_connection: ssh
+ansible_shell_type: powershell
+ansible_user: smogsy
+
+win_packages_additional:
+  - steam
+  -
+
+...

@@ -1,0 +1,11 @@
+---
+
+- name: windows update
+  hosts: "{{ hostnames }}"
+
+
+  roles:
+    - win_update
+
+
+...

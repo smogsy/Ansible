@@ -1,0 +1,35 @@
+---
+
+- name: Firewall rule to allow windows ansible ports
+  win_firewall_rule:
+    name: SSH
+    localport: 22
+    action: allow
+    direction: in
+    protocol: tcp
+    state: present
+    enabled: no
+
+- name: Firewall rule to allow windows ansible ports (2)
+  win_firewall_rule:
+    name: winrm
+    localport: 5895-5896
+    action: allow
+    direction: in
+    protocol: tcp
+    state: absent
+    enabled: yes
+
+- name: Enable firewall for Domain, Public and Private profiles
+  win_firewall:
+    state: enabled
+    profiles:
+    - Domain
+    - Private
+    - Public
+  when: win_enable_firewall | bool
+  tags: firewall_enable
+
+
+
+...

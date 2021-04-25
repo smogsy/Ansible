@@ -1,0 +1,25 @@
+---
+- name: Get Swap percentage
+    shell: free -m | grep Swap | awk '{print ($3/$2)*100}'
+    register: clean_swap_percentage_used
+    when:
+        - ram_met_opsview_threshold | bool
+        - ram_met_threshold | bool
+
+- debug:
+    msg: "{{ Did not reach threshold: swap threshold: clean_swap_percentage_threshold }}"
+    when: swap_not_met_threshold | bool
+
+- name: Get Used swap in MB
+    shell: free -m | grep Swap | awk '{print $2}
+    register: clean_swap_used_swap
+    when:
+        - ram_met_opsview_threshold | bool
+        - ram_met_threshold | bool
+
+- debug:
+    msg: "{{ used swap space: clean_swap_used_swap }}"
+    when:
+        - ram_met_opsview_threshold | bool
+        - ram_met_threshold | bool
+...

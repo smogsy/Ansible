@@ -1,0 +1,8 @@
+---
+
+windows:
+  hosts:
+    evie:
+      ansible_host: 2.2.2.48
+
+...

@@ -1,0 +1,12 @@
+---
+ansible_connection: ssh
+ansible_shell_type: cmd
+ansible_user: smogsy
+
+win_packages:
+  - 7zip
+  - vlc
+
+win_enable_firewall: true
+
+...

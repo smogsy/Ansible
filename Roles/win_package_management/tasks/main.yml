@@ -1,0 +1,14 @@
+---
+
+- name: Install standard packages
+  win_chocolatey:
+    name: "{{ win_packages }}"
+    state: present
+
+- name: Install additional packages
+  win_chocolatey:
+    name: "{{ win_packages_additional }}"
+    state: present
+  when: win_packages_additional | bool
+
+...

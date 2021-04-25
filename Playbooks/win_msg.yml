@@ -1,0 +1,11 @@
+---
+
+- name: Message Users
+  hosts: "{{ hostnames }}"
+
+
+  roles:
+    - win_msg
+
+
+...

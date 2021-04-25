@@ -1,0 +1,9 @@
+---
+# Threshold to do somthing about ram
+clean_swap_percentage_threshold: 80
+clean_ram_percentage_threshold: 80
+
+#amount of free ram we want to safely clean swap without
+clean_swap_free_ram_threshold: 1000
+
+...

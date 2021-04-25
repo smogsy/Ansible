@@ -1,0 +1,11 @@
+---
+
+- name: Firewall Changes
+  hosts: "{{ hostnames }}"
+
+
+  roles:
+    - win_firewall
+
+
+...

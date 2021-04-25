@@ -1,0 +1,40 @@
+---
+set_fact:
+  - ram_met_opsview_threshold: clean_ram_percentage_used | int < clean_ram_percentage_threshold
+  - ram_not_met_threshold: (clean_swap_used_swap | int + clean_swap_free_ram_threshold) > clean_swap_free_ram
+  - ram_met_threshold: (clean_swap_used_swap | int + clean_swap_free_ram_threshold) < clean_swap_free_ram
+  - swap_met_threshold: clean_swap_percentage_used | int >= clean_swap_percentage_threshold
+  - swap_not_met_threshold: clean_swap_percentage_used | int <= clean_swap_percentage_threshold
+
+
+- include: free_ram.yml
+- include: swap_used.yml
+
+
+- name: turn off swap
+    command: swapoff -a
+  when:
+    - ram_met_opsview_threshold | bool
+    - ram_met_threshold | bool
+    - swap_met_threshold | bool
+
+- name: Recommended wait for cleanup (recommended)
+  wait_for:
+    timeout: 30
+
+- name: turn on swap
+    command: swapon -a
+  when:
+    - ram_met_opsview_threshold | bool
+    - ram_met_threshold | bool
+    - swap_met_threshold | bool
+
+
+- include: swap_used.yml
+
+- name:
+    fail:
+      msg: "Swap still meets threshold"
+    when:
+    - swap_meets_threshold | bool
+...

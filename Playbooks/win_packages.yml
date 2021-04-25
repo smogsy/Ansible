@@ -1,0 +1,11 @@
+---
+
+- name: Install packages
+  hosts: "{{ hostnames }}"
+
+
+  roles:
+    - win_package_management
+
+
+...

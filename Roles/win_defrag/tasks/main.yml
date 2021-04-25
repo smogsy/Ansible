@@ -1,0 +1,7 @@
+---
+
+- name: Defragment all local volumes (in parallel)
+  win_defrag:
+    parallel: yes
+
+...
